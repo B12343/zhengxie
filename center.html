@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>协商民主实践中心 - 上城区政协</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .page-header { background: linear-gradient(135deg, var(--primary-red) 0%, #c41e3a 100%); color: #fff; padding: 50px 0; text-align: center; }
+        .page-header h1 { font-size: 36px; margin-bottom: 10px; }
+        .page-header p { font-size: 16px; opacity: 0.9; }
+        .center-intro { background: #fff; border-radius: 12px; padding: 30px; margin: 30px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.08); line-height: 1.8; }
+        .two-centers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin: 30px 0; }
+        .center-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .center-card img { width: 100%; height: 220px; object-fit: cover; background: #f0f0f0; }
+        .center-card .info { padding: 25px; }
+        .center-card h3 { color: var(--primary-red); font-size: 20px; margin-bottom: 15px; }
+        .center-card p { color: #666; font-size: 14px; margin: 8px 0; line-height: 1.6; }
+        .center-card .tag { display: inline-block; background: #ffe6e6; color: var(--primary-red); padding: 5px 15px; border-radius: 15px; font-size: 13px; margin-top: 10px; }
+        .section-title { text-align: center; margin: 40px 0 25px; }
+        .section-title h2 { color: var(--primary-red); font-size: 24px; display: inline-block; padding-bottom: 8px; border-bottom: 3px solid var(--primary-red); }
+        .activity-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .activity-card { background: #fff; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .activity-card:hover { transform: translateY(-5px); }
+        .activity-card .emoji { font-size: 32px; margin-bottom: 10px; }
+        .activity-card h4 { color: var(--primary-red); font-size: 13px; margin-bottom: 8px; }
+        .activity-card p { color: #888; font-size: 11px; }
+        .photo-wall { background: #fff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .photo-wall h3 { color: var(--primary-red); margin-bottom: 20px; }
+        .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .photo-item { border-radius: 8px; overflow: hidden; aspect-ratio: 1; cursor: pointer; background: #f0f0f0; position: relative; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .photo-item:hover img { transform: scale(1.1); }
+        .photo-item span { display: block; padding: 5px; background: rgba(0,0,0,0.6); color: #fff; font-size: 10px; text-align: center; position: absolute; bottom: 0; left: 0; right: 0; }
+        @media(max-width: 900px) { .two-centers, .activity-grid, .photo-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media(max-width: 600px) { .two-centers, .activity-grid, .photo-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"><div class="logo-icon">政</div><span>上城区政协</span></div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./studios.html">委员工作室</a></li>
+                <li><a href="./circles.html">界别履职</a></li>
+                <li><a href="./streets.html">街道议事堂</a></li>
+                <li><a href="./center.html" class="active">协商中心</a></li>
+                <li><a href="./gallery.html">活动相册</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>新时代协商民主实践中心</h1>
+        <p>"一南一北"两大分中心 · 常态化运营机制</p>
+    </div>
+
+    <main class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="center-intro">
+            <h2 style="color:var(--primary-red);margin-bottom:15px;">关于上城区分中心</h2>
+            <p>上城区政协坚持党建引领，锚定新时代人民政协新方位新使命，与市政协新时代协商民主实践中心同频共振、同向发力。立足区域禀赋，整合优势资源，将委员一线履职、政协工作延伸、基层社会治理三者有机结合，"三位一体"建设协商民主实践平台，推动"一南一北"两大分中心建立常态化运营机制，着力打造"一中心一主题、多站点互联动"的平台矩阵。</p>
+        </div>
+
+        <div class="two-centers">
+            <div class="center-card">
+                <img src="./images/center/pengbu/彭埠4-彭埠街道委员小组开展非遗体验活动.webp" alt="彭埠分中心" onerror="this.style.display='none'">
+                <div class="info">
+                    <h3>🏛️ 彭埠分中心</h3>
+                    <p><strong>位置：</strong>彭埠街道罗家老宅</p>
+                    <p><strong>成立：</strong>2023年3月</p>
+                    <p><strong>布局：</strong>"一园一堂一馆两站"</p>
+                    <p>依托市政协党建联建示范点、杭州市青少年模拟政协实践基地等阵地资源打造。</p>
+                    <span class="tag">南部主中心</span>
+                </div>
+            </div>
+            <div class="center-card">
+                <img src="./images/center/ziyang/紫阳1-区政协孙国方主席赴紫阳分中心调研.webp" alt="紫阳分中心" onerror="this.style.display='none'">
+                <div class="info">
+                    <h3>🏛️ 紫阳分中心</h3>
+                    <p><strong>位置：</strong>紫阳西泠书房</p>
+                    <p><strong>成立：</strong>2025年底</p>
+                    <p><strong>布局：</strong>"一家七景"</p>
+                    <p>依托"新中国第一居"治理底蕴与宋韵文化资源，打通协商民主"最后一公里"。</p>
+                    <span class="tag">北部副中心</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>彭埠分中心2026年度活动</h2>
+        </div>
+        <div class="activity-grid">
+            <div class="activity-card"><div class="emoji">🧧</div><h4>1月 暖冬同心</h4><p>迎新春送温情</p></div>
+            <div class="activity-card"><div class="emoji">🏠</div><h4>2月 协商焕新</h4><p>罗家老宅更新</p></div>
+            <div class="activity-card"><div class="emoji">📚</div><h4>3月 书香履职</h4><p>两会精神学习</p></div>
+            <div class="activity-card"><div class="emoji">💼</div><h4>4月 企业赋能</h4><p>AGI青创调研</p></div>
+            <div class="activity-card"><div class="emoji">🎭</div><h4>5月 文旅融合</h4><p>非遗文化体验</p></div>
+            <div class="activity-card"><div class="emoji">🏘️</div><h4>6月 未来社区</h4><p>杨柳郡调研</p></div>
+            <div class="activity-card"><div class="emoji">🌟</div><h4>7月 关爱青春</h4><p>青少年心理</p></div>
+            <div class="activity-card"><div class="emoji">🤝</div><h4>8月 共建共享</h4><p>租住融合协商</p></div>
+            <div class="activity-card"><div class="emoji">❤️</div><h4>9月 便民情暖</h4><p>敬老爱老服务</p></div>
+            <div class="activity-card"><div class="emoji">🚴</div><h4>10月 暖新成长</h4><p>小哥驿站协商</p></div>
+            <div class="activity-card"><div class="emoji">📖</div><h4>11月 履职交流</h4><p>读书成果交流</p></div>
+            <div class="activity-card"><div class="emoji">🏆</div><h4>12月 总结提升</h4><p>年度总结展示</p></div>
+        </div>
+
+        <div class="section-title">
+            <h2>紫阳分中心2026年度活动</h2>
+        </div>
+        <div class="activity-grid">
+            <div class="activity-card"><div class="emoji">🎊</div><h4>1月 厚植民生</h4><p>新春惠民服务</p></div>
+            <div class="activity-card"><div class="emoji">🏛️</div><h4>2月 深化坊巷</h4><p>二十三坊更新</p></div>
+            <div class="activity-card"><div class="emoji">📚</div><h4>3月 深学强履职</h4><p>两会精神学习</p></div>
+            <div class="activity-card"><div class="emoji">💡</div><h4>4月 聚力经济</h4><p>特色楼宇提质</p></div>
+            <div class="activity-card"><div class="emoji">🎭</div><h4>5月 激活人文</h4><p>非遗坊巷文旅</p></div>
+            <div class="activity-card"><div class="emoji">🏮</div><h4>6月 赋能文旅</h4><p>中河南路改造</p></div>
+            <div class="activity-card"><div class="emoji">👶</div><h4>7月 守护少年</h4><p>暑期公益服务</p></div>
+            <div class="activity-card"><div class="emoji">🛡️</div><h4>8月 创新治理</h4><p>矛盾调处体系</p></div>
+            <div class="activity-card"><div class="emoji">👴</div><h4>9月 情暖老年</h4><p>养老服务提升</p></div>
+            <div class="activity-card"><div class="emoji">🏠</div><h4>10月 提升民生</h4><p>一老一小一残</p></div>
+            <div class="activity-card"><div class="emoji">📖</div><h4>11月 深学促履职</h4><p>委员读书交流</p></div>
+            <div class="activity-card"><div class="emoji">⭐</div><h4>12月 擦亮品牌</h4><p>争创示范点</p></div>
+        </div>
+
+        <div class="section-title">
+            <h2>分中心活动照片</h2>
+        </div>
+        <div class="photo-wall">
+            <h3>📷 彭埠分中心活动</h3>
+            <div class="photo-grid" id="pengbuPhotos"></div>
+        </div>
+        <div class="photo-wall" style="margin-top:30px;">
+            <h3>📷 紫阳分中心活动</h3>
+            <div class="photo-grid" id="ziyangPhotos"></div>
+        </div>
+    </main>
+
+    <div id="previewModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center;" onclick="closePreview()">
+        <span style="position:absolute; top:20px; right:30px; color:#fff; font-size:40px; cursor:pointer;">&times;</span>
+        <img id="previewImg" style="max-width:90%; max-height:90%; border-radius:8px;">
+        <p id="previewText" style="position:absolute; bottom:30px; left:50%; transform:translateX(-50%); color:#fff; font-size:16px; text-align:center;"></p>
+    </div>
+
+    <footer class="footer"><p>杭州市上城区政协 © 2026</p></footer>
+
+    <script>
+        function toggleMenu(){document.getElementById('navLinks').classList.toggle('show');}
+        
+        const pengbuPhotos = [
+            {src:"./images/center/pengbu/彭埠1-市政协新时代协商民主实践中心矩阵建设座谈会在实践中心上城区分中心召开，市政协毛溪浩副主席参加.webp", title:"市政协座谈会"},
+            {src:"./images/center/pengbu/彭埠2-市区街三级政协党建联建工作会议在彭埠分中心召开.webp", title:"党建联建会议"},
+            {src:"./images/center/pengbu/彭埠3-彭埠街道委员小组开展A圆梦安居，助力街道回迁安置A民生议事堂专题协商.webp", title:"回迁安置协商"},
+            {src:"./images/center/pengbu/彭埠4-彭埠街道委员小组开展非遗体验活动.webp", title:"非遗体验活动"},
+            {src:"./images/center/pengbu/彭埠5-联盟单位夏衍小学开展棋类比赛.webp", title:"夏衍小学活动"},
+            {src:"./images/center/pengbu/彭埠6-妇联界别举办国学文化品鉴暨界别调研总结会.webp", title:"国学文化品鉴"},
+            {src:"./images/center/pengbu/彭埠7-共青团、青联界别，工商联界别，科技、科协界别和彭埠街道委员小组联合举办中医养生专题讲座及义诊服务活动.webp", title:"中医养生义诊"},
+            {src:"./images/center/pengbu/彭埠8-湖滨街道委员小组开展A助推商圈社区建设A民生议事堂活动.webp", title:"商圈社区建设"},
+            {src:"./images/center/pengbu/彭埠9-清波街道委员小组、无党派界别开展清波街道老旧小区物业服务A质价双提A议事协商活动.webp", title:"物业服务协商"},
+            {src:"./images/center/pengbu/彭埠10-小营街道委员小组举办A遇见东坡A交流会.webp", title:"遇见东坡交流"},
+            {src:"./images/center/pengbu/彭埠11-望江街道委员小组开展A普及全民金融知识增强百姓防诈意识A专题协商活动.webp", title:"防诈专题协商"},
+            {src:"./images/center/pengbu/彭埠12-南星街道委员小组携手特邀界别举办A赓续历史之文脉，建言服务为民生A冬季读书会及专题协商会.webp", title:"冬季读书会"}
+        ];
+        
+        const ziyangPhotos = [
+            {src:"./images/center/ziyang/紫阳1-区政协孙国方主席赴紫阳分中心调研.webp", title:"孙国方主席调研"},
+            {src:"./images/center/ziyang/紫阳2-市政协吴玉凤副秘书长调研紫阳分中心建设工作.webp", title:"吴玉凤副秘书长调研"},
+            {src:"./images/center/ziyang/紫阳3-紫阳上羊实践点开展A推动邻里食堂智能化A专题协商会.webp", title:"邻里食堂协商"}
+        ];
+        
+        document.getElementById('pengbuPhotos').innerHTML = pengbuPhotos.map(p => `
+            <div class="photo-item" onclick="previewImage('${p.src}', '${p.title}')">
+                <img src="${p.src}" alt="${p.title}" onerror="this.style.display='none'">
+                <span>${p.title}</span>
+            </div>
+        `).join('');
+        
+        document.getElementById('ziyangPhotos').innerHTML = ziyangPhotos.map(p => `
+            <div class="photo-item" onclick="previewImage('${p.src}', '${p.title}')">
+                <img src="${p.src}" alt="${p.title}" onerror="this.style.display='none'">
+                <span>${p.title}</span>
+            </div>
+        `).join('');
+        
+        function previewImage(src, title) {
+            document.getElementById('previewImg').src = src;
+            document.getElementById('previewText').textContent = title;
+            document.getElementById('previewModal').style.display = 'flex';
+        }
+        
+        function closePreview() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
