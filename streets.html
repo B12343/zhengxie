@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>街道议事堂 - 上城区政协</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .page-header { background: linear-gradient(135deg, var(--primary-red) 0%, #c41e3a 100%); color: #fff; padding: 50px 0; text-align: center; }
+        .page-header h1 { font-size: 36px; margin-bottom: 10px; }
+        .page-header p { font-size: 16px; opacity: 0.9; }
+        .street-tabs { display: flex; gap: 8px; margin: 30px 0; flex-wrap: wrap; }
+        .street-tabs button { padding: 10px 18px; border: 2px solid var(--primary-red); background: #fff; color: var(--primary-red); border-radius: 20px; cursor: pointer; font-size: 14px; transition: all 0.3s; }
+        .street-tabs button.active, .street-tabs button:hover { background: var(--primary-red); color: #fff; }
+        .street-content { background: #fff; border-radius: 12px; padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .street-content h3 { color: var(--primary-red); margin-bottom: 25px; font-size: 22px; padding-bottom: 15px; border-bottom: 2px solid #eee; }
+        .topic-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .topic-card { border: 1px solid #eee; border-radius: 10px; padding: 20px; transition: all 0.3s; }
+        .topic-card:hover { border-color: var(--primary-red); box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .topic-month { background: var(--primary-red); color: #fff; display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; margin-bottom: 10px; }
+        .topic-card h4 { color: #333; font-size: 15px; margin-bottom: 8px; }
+        .topic-card p { color: #888; font-size: 13px; }
+        @media(max-width: 768px) { .topic-list { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"><div class="logo-icon">政</div><span>上城区政协</span></div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./studios.html">委员工作室</a></li>
+                <li><a href="./circles.html">界别履职</a></li>
+                <li><a href="./streets.html" class="active">街道议事堂</a></li>
+                <li><a href="./center.html">协商中心</a></li>
+                <li><a href="./gallery.html">活动相册</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>街道民生议事堂</h1>
+        <p>14个街道 · 32项年度协商议事计划</p>
+    </div>
+
+    <main class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="street-tabs" id="streetTabs"></div>
+        <div class="street-content" id="streetContent"></div>
+    </main>
+
+    <footer class="footer"><p>杭州市上城区政协 © 2026</p></footer>
+
+    <script>
+        function toggleMenu(){document.getElementById('navLinks').classList.toggle('show');}
+        
+        const streetsData = {
+            "湖滨街道": [
+                {month:"1月", title:"迎新春送温暖", desc:"组织委员走访困难群众，送去新春祝福和慰问物资"},
+                {month:"3月", title:"商圈发展协商", desc:"围绕湖滨步行街改造提升开展专题协商"},
+                {month:"6月", title:"基层治理调研", desc:"调研老旧小区治理难题，提出改进建议"},
+                {month:"9月", title:"民生实事监督", desc:"对街道民生实事项目推进情况进行监督视察"}
+            ],
+            "清波街道": [
+                {month:"2月", title:"宋韵文化传承", desc:"开展宋韵文化进社区系列活动"},
+                {month:"4月", title:"老字号发展协商", desc:"围绕老字号品牌创新发展开展协商"},
+                {month:"7月", title:"文物保护调研", desc:"调研辖区内文物保护单位利用情况"},
+                {month:"10月", title:"社区协商议事", desc:"召开社区协商议事会，解决居民反映问题"}
+            ],
+            "小营街道": [
+                {month:"1月", title:"红色文化传承", desc:"依托红色资源开展爱国主义教育活动"},
+                {month:"4月", title:"健康社区建设", desc:"协商推进健康社区创建工作"},
+                {month:"7月", title:"为老服务提升", desc:"调研养老服务体系建设情况"},
+                {month:"10月", title:"委员读书分享", desc:"组织委员开展读书分享活动"}
+            ],
+            "望江街道": [
+                {month:"2月", title:"钱江新城发展协商", desc:"围绕钱江新城核心区建设发展建言献策"},
+                {month:"5月", title:"金融知识普及", desc:"开展防范非法集资金融知识进社区活动"},
+                {month:"8月", title:"安置房管理调研", desc:"调研征迁安置房小区管理工作"},
+                {month:"11月", title:"年度工作交流", desc:"召开街道政协工作年度总结交流会"}
+            ],
+            "南星街道": [
+                {month:"3月", title:"文化创意产业协商", desc:"围绕文化创意产业发展开展专题协商"},
+                {month:"6月", title:"平安建设监督", desc:"对街道平安建设工作进行监督视察"},
+                {month:"9月", title:"居民自治调研", desc:"调研居民自治机制运行情况"},
+                {month:"12月", title:"界别联动活动", desc:"联合其他界别开展协商议事活动"}
+            ],
+            "紫阳街道": [
+                {month:"1月", title:"新春送福活动", desc:"开展送春联、送祝福进社区活动"},
+                {month:"4月", title:"基层协商示范", desc:"打造基层协商民主示范点"},
+                {month:"7月", title:"宋韵文化体验", desc:"组织宋韵文化体验活动"},
+                {month:"10月", title:"协商成果转化", desc:"跟踪协商建议落实情况"}
+            ],
+            "闸弄口街道": [
+                {month:"2月", title:"春运志愿服务", desc:"组织委员参与春运志愿服务"},
+                {month:"5月", title:"社区治理协商", desc:"围绕社区治理创新开展协商议事"},
+                {month:"8月", title:"垃圾分类监督", desc:"对垃圾分类工作进行专项监督"},
+                {month:"11月", title:"民生实事验收", desc:"参与街道民生实事项目验收评议"}
+            ],
+            "凯旋街道": [
+                {month:"3月", title:"楼宇经济发展", desc:"围绕楼宇经济提质增效开展协商"},
+                {month:"6月", title:"健康凯旋建设", desc:"协商推进健康街道创建工作"},
+                {month:"9月", title:"民族团结进步", desc:"开展民族团结进步创建活动"},
+                {month:"12月", title:"年度工作总结", desc:"召开街道政协工作年度总结会"}
+            ],
+            "采荷街道": [
+                {month:"1月", title:"新春走访慰问", desc:"组织委员走访慰问困难家庭"},
+                {month:"4月", title:"市场转型升级", desc:"围绕四季青服装市场转型升级协商建言"},
+                {month:"7月", title:"为老服务协商", desc:"协商推进居家养老服务工作"},
+                {month:"10月", title:"社区文化活动", desc:"组织委员参与社区文化活动"}
+            ],
+            "四季青街道": [
+                {month:"2月", title:"楼宇企业服务", desc:"走访楼宇企业，优化营商环境"},
+                {month:"5月", title:"金融产业协商", desc:"围绕钱江新城金融产业发展建言"},
+                {month:"8月", title:"青年创业支持", desc:"支持青年创新创业协商活动"},
+                {month:"11月", title:"协商履职交流", desc:"组织委员履职经验交流分享"}
+            ],
+            "笕桥街道": [
+                {month:"3月", title:"机场周边发展", desc:"围绕机场周边环境提升开展协商"},
+                {month:"6月", title:"城中村改造", desc:"调研城中村改造项目推进情况"},
+                {month:"9月", title:"农业现代化", desc:"围绕都市农业发展协商建言"},
+                {month:"12月", title:"年度工作评议", desc:"组织委员对街道工作进行评议"}
+            ],
+            "彭埠街道": [
+                {month:"1月", title:"罗家老宅活化", desc:"协商推进罗家老宅保护利用工作"},
+                {month:"4月", title:"非遗文化传承", desc:"开展非遗文化传承体验活动"},
+                {month:"7月", title:"未来社区建设", desc:"调研未来社区创建工作"},
+                {month:"10月", title:"协商中心活动", desc:"依托协商民主实践中心开展活动"}
+            ],
+            "九堡街道": [
+                {month:"2月", title:"电商产业发展", desc:"围绕电商产业发展开展协商议事"},
+                {month:"5月", title:"居住环境提升", desc:"调研居住环境综合整治情况"},
+                {month:"8月", title:"新就业群体关怀", desc:"关心关爱快递员、外卖骑手等新就业群体"},
+                {month:"11月", title:"健康九堡协商", desc:"推进健康街道建设协商活动"}
+            ],
+            "丁兰街道": [
+                {month:"3月", title:"乡村振兴发展", desc:"围绕皋城村乡村振兴开展协商"},
+                {month:"6月", title:"长睦新城建设", desc:"调研长睦区域开发建设情况"},
+                {month:"9月", title:"生态文明建设", desc:"围绕生态环境提升开展协商议事"},
+                {month:"12月", title:"年度工作总结", desc:"召开街道政协工作年度总结会"}
+            ]
+        };
+        
+        const icons = "🏢🏛️🏘️💼🎯🌟✨🎊🔔🏠🎪🏬🏗️🏥🏡".split('');
+        
+        function renderTabs() {
+            const tabs = document.getElementById('streetTabs');
+            Object.keys(streetsData).forEach((name, i) => {
+                const btn = document.createElement('button');
+                btn.innerHTML = icons[i % icons.length] + ' ' + name;
+                btn.onclick = () => showStreet(name, btn);
+                tabs.appendChild(btn);
+            });
+            tabs.children[0].classList.add('active');
+        }
+        
+        function showStreet(name, btn) {
+            document.querySelectorAll('.street-tabs button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const content = document.getElementById('streetContent');
+            const topics = streetsData[name];
+            
+            content.innerHTML = `
+                <h3>🏘️ ${name} 民生议事堂</h3>
+                <div class="topic-list">
+                    ${topics.map(t => `
+                        <div class="topic-card">
+                            <span class="topic-month">${t.month}</span>
+                            <h4>${t.title}</h4>
+                            <p>${t.desc}</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        renderTabs();
+        const firstBtn = document.querySelector('.street-tabs button');
+        if(firstBtn) showStreet('湖滨街道', firstBtn);
+    </script>
+</body>
+</html>
