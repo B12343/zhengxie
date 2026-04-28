@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>委员工作室 - 上城区政协</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .page-header { background: linear-gradient(135deg, var(--primary-red) 0%, #c41e3a 100%); color: #fff; padding: 50px 0; text-align: center; }
+        .page-header h1 { font-size: 36px; margin-bottom: 10px; }
+        .page-header p { font-size: 16px; opacity: 0.9; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 30px 0; }
+        .stat-card { background: #fff; border-radius: 12px; padding: 30px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-top: 4px solid var(--primary-red); }
+        .stat-card .number { font-size: 42px; font-weight: bold; color: var(--primary-red); }
+        .stat-card .label { color: #666; margin-top: 5px; font-size: 14px; }
+        .filter-tabs { display: flex; gap: 10px; margin: 30px 0; flex-wrap: wrap; justify-content: center; }
+        .filter-tabs button { padding: 10px 20px; border: 2px solid var(--primary-red); background: #fff; color: var(--primary-red); border-radius: 25px; cursor: pointer; font-size: 14px; transition: all 0.3s; }
+        .filter-tabs button.active, .filter-tabs button:hover { background: var(--primary-red); color: #fff; }
+        .studio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 30px 0; }
+        .studio-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .studio-card:hover { transform: translateY(-5px); }
+        .studio-card img { width: 100%; height: 160px; object-fit: cover; background: #f0f0f0; }
+        .studio-card .info { padding: 20px; }
+        .studio-card h3 { color: var(--primary-red); font-size: 16px; margin-bottom: 10px; }
+        .studio-card p { color: #666; font-size: 13px; margin: 5px 0; }
+        .studio-card .tag { display: inline-block; background: #ffe6e6; color: var(--primary-red); padding: 3px 10px; border-radius: 10px; font-size: 11px; margin-top: 8px; }
+        @media(max-width: 900px) { .studio-grid { grid-template-columns: repeat(2, 1fr); } .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media(max-width: 600px) { .studio-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"><div class="logo-icon">政</div><span>上城区政协</span></div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./studios.html" class="active">委员工作室</a></li>
+                <li><a href="./circles.html">界别履职</a></li>
+                <li><a href="./streets.html">街道议事堂</a></li>
+                <li><a href="./center.html">协商中心</a></li>
+                <li><a href="./gallery.html">活动相册</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>委员工作室</h1>
+        <p>50家委员工作室 · 实现街道委员小组全覆盖</p>
+    </div>
+
+    <main class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="stats-grid">
+            <div class="stat-card"><div class="number">50</div><div class="label">委员工作室</div></div>
+            <div class="stat-card"><div class="number">14</div><div class="label">街道全覆盖</div></div>
+            <div class="stat-card"><div class="number">25</div><div class="label">五星级</div></div>
+            <div class="stat-card"><div class="number">17</div><div class="label">四星级</div></div>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="active" onclick="filterStudios('all', this)">全部（50）</button>
+            <button onclick="filterStudios('街道', this)">街道小组（14）</button>
+            <button onclick="filterStudios('界别', this)">界别（4）</button>
+            <button onclick="filterStudios('社区', this)">社区（5）</button>
+            <button onclick="filterStudios('特色', this)">特色（27）</button>
+        </div>
+
+        <div class="studio-grid" id="studioGrid"></div>
+    </main>
+
+    <footer class="footer"><p>杭州市上城区政协 © 2026</p></footer>
+
+    <script>
+        function toggleMenu(){document.getElementById('navLinks').classList.toggle('show');}
+        
+        const studiosData = [
+            {id:1, name:"政协湖滨小组委员工作室", leader:"查靖", address:"上城区羊血弄10号", type:"街道", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:2, name:"政协清波小组委员工作室", leader:"徐洁", address:"上城区清波街道蔡官巷35号三楼", type:"街道", img:"./images/studios/2-政协清波小组委员工作室-幸福清波，文化送福，联动中国美院为清波派出所、禁毒所、清波居民送新年祝福.webp"},
+            {id:3, name:"政协小营小组委员工作室", leader:"冷晓辉", address:"杭州市上城区建国南路98号小营街道办事处", type:"街道", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:4, name:"政协望江小组委员工作室", leader:"毛静波", address:"上城区翡翠海岸1幢6号", type:"街道", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:5, name:"政协南星小组委员工作室", leader:"游广敏", address:"上城区目术塘创意园2号楼7楼", type:"街道", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:6, name:"紫阳街道三一委员工作室", leader:"王盈", address:"上城区金钗袋巷79号", type:"街道", img:"./images/studios/3-政协紫阳三一委员工作室-践行委员说·委员做，锚定两个先行目标，领跑基层白治之路.webp"},
+            {id:7, name:"闸弄口街道基层治理委员工作室", leader:"祝文雅", address:"上城区闸弄口街道党群服务中心", type:"街道", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:8, name:"政协凯旋小组委员工作室", leader:"金志伟", address:"上城区凤起东路127号", type:"街道", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:9, name:"采荷街道幸福19委员工作室", leader:"赵丹晨", address:"上城区采荷街道洁莲社区", type:"街道", img:"./images/studios/4-采荷街道幸福19委员工作室-疗愈经济分享体验会活动.webp"},
+            {id:10, name:"政协四季青小组委员工作室", leader:"李岗", address:"上城区民心路280号平安金融中心B座3楼", type:"街道", img:"./images/studios/5-政协四季青小组委员工作室-市区县三级联动，召开投早投小投科技专题协商会.webp"},
+            {id:11, name:"政协笕桥小组委员工作室", leader:"阮骏", address:"上城区笕桥街道政协会议室", type:"街道", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:12, name:"政协彭埠小组委员工作室", leader:"任渊", address:"上城区S2杭甬高速附近罗家老宅", type:"街道", img:"./images/studios/6-政协彭埠小组委员工作室-邀请非遗传承人开展非遗制作体验活动.webp"},
+            {id:13, name:"政协九堡小组委员工作室", leader:"胡建清", address:"上城区九乔街与杭乔路交叉口", type:"街道", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:14, name:"政协丁兰小组委员工作室", leader:"倪勇卿", address:"上城区临丁路699号丁兰街道办事处5号楼4楼", type:"街道", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:15, name:"张瑞旭委员工作室", leader:"张瑞旭", address:"上城区凯旋街道凯益荟208室", type:"特色", img:"./images/studios/15-张瑞旭委员工作室-举办委员工作室跨代共融日活动.webp"},
+            {id:16, name:"缪渭川委员工作室", leader:"缪渭川", address:"上城区凯旋街道南肖埠社区", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:17, name:"虞军红委员工作室", leader:"虞军红", address:"上城区运新花苑运新社区", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:18, name:"商业服务智库委员工作室", leader:"姚华俊、黄晓芹", address:"上城区新业路8号UDC时代大厦3楼", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:19, name:"俞富康宋韵文化委员工作室", leader:"俞富康", address:"上城区凯旋路151号", type:"特色", img:"./images/studios/17-俞富康宋韵文化委员工作室-国际艺术交流送中国福.webp"},
+            {id:20, name:"爱馨文化公益委员工作室", leader:"杨洁", address:"上城区南山路198号（杭州书房）", type:"特色", img:"./images/studios/11-爱馨文化公益委员工作室-爱馨文化公益委员工作室.webp"},
+            {id:21, name:"文润童心委员工作室", leader:"周媛媛", address:"杭州市上城区清波街道府学巷8号", type:"特色", img:"./images/studios/9-文润童心委员工作室-传承和弘扬中华优秀传统文化，探索乡村优秀传统文化启蒙教育新路径.webp"},
+            {id:22, name:"老爸好商量委员工作室", leader:"俞富根", address:"上城区四宜路180号", type:"特色", img:"./images/studios/12-老爸好商量委员工作室-发扬重视家庭教育优良传统，助力孩子健康快乐成长，举办亲子运动会.webp"},
+            {id:23, name:"侨见未来委员工作室", leader:"胡晓敏", address:"上城区兰巷101-104号（山蜂书房）", type:"特色", img:"./images/studios/14-侨见未来委员工作室-关于社区居民空调安装纠纷的专项协商会.webp"},
+            {id:24, name:"宋韵老字号委员工作室", leader:"屠明珏", address:"上城区江城路865号满江红大酒店二楼杭帮菜文化展览馆", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:25, name:"幸福邻里委员工作室", leader:"尹兆青", address:"上城区闸弄口街道红梅社区", type:"社区", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:26, name:"大健康委员工作室", leader:"谢慧淼", address:"上城区凯旋路与凯林巷交叉口凯西社区", type:"特色", img:"./images/studios/16-大健康委员工作室-传承国粹，践行公益，走进社区开展健康宣教义诊活动.webp"},
+            {id:27, name:"大成委员工作室", leader:"陈磊", address:"上城区钱江路1366号华润大厦A座18层", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:28, name:"邻聚力委员工作室", leader:"余丹凤", address:"上城区凤起东路203号中豪五福天地商业中心B座2幢21层", type:"特色", img:"./images/studios/19-邻聚力委员工作室-凝聚社会公益慈善之心，开展让每个孩子像花儿一样绽放主题论坛.webp"},
+            {id:29, name:"东港社区委员工作室", leader:"蒋平樑", address:"上城区笕桥街道东港社区", type:"社区", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:30, name:"建和社区委员工作室", leader:"周建卫", address:"上城区彭埠街道建和社区", type:"社区", img:"./images/studios/20-建和社区委员工作室-党建引领，做好点滴惠民小事，走访慰问九和人家独居老人.webp"},
+            {id:31, name:"杨柳郡社区委员工作室", leader:"王鹏", address:"上城区九和路660号绿城杨柳郡", type:"社区", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:32, name:"长睦幸福湾委员工作室", leader:"龚云玉", address:"上城区丁兰街道长睦苑社区", type:"社区", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:33, name:"同心共富委员工作室", leader:"吴韵", address:"上城区丁兰街道皋城村文化礼堂", type:"特色", img:"./images/studios/22-同心·共富委员工作室-举行乡村音乐节，用实用管用的好点子，助力乡村振兴.webp"},
+            {id:34, name:"乐动新声委员工作室", leader:"俞宙", address:"上城区金峰大厦1503室", type:"特色", img:"./images/studios/25-乐动新声委员工作室-委员工作室.webp"},
+            {id:35, name:"茗荟聚智委员工作室", leader:"王容峰", address:"上城区大井巷30-4号", type:"特色", img:"./images/studios/23-茗荟聚智委员工作室-开展茶韵议事交流活动.webp"},
+            {id:36, name:"上城区政协无党派界别委员工作室", leader:"凌栋", address:"上城区凯旋路247-1号4楼", type:"界别", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:37, name:"上城区政协工会界别委员工作室", leader:"蔡肇颖", address:"上城区工人文化宫（太平门直街458号）", type:"界别", img:"./images/studios/7-工会界别委员工作室-开展美丽大讲堂活动.webp"},
+            {id:38, name:"上城区政协社会福利和保障界别委员工作室", leader:"吴国庆", address:"上城区凯旋路125号（特有爱·幸福体验馆）", type:"界别", img:"./images/studios/8-社会福利和保障界别委员工作室-残疾人之家的义卖活动.webp"},
+            {id:39, name:"有意思委员工作室", leader:"方晓阳", address:"上城区复兴南街130号", type:"特色", img:"./images/studios/13-有意思委员工作室-工作室委员与社区居民代表召开民生座谈会，听取居民对小区提升、菜场改造、停车难等问题的意见建议.webp"},
+            {id:40, name:"春泥委员工作室", leader:"沈春妮", address:"上城区采荷路34号杭州市上城区社会组织服务中心5楼", type:"特色", img:"./images/studios/18-春泥委员工作室-两会期间迎新送福、送春联.webp"},
+            {id:41, name:"两岸一家亲委员工作室", leader:"陆雯", address:"上城区解放路189号-2", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:42, name:"视觉之思委员工作室", leader:"何晓菲", address:"上城区虎玉路16-18号", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:43, name:"育共体阳光行委员工作室", leader:"王梦婷", address:"上城区景芳三区58幢新社区邻里中心", type:"特色", img:"./images/studios/24-育共体阳光行委员工作室-小小政协委员青少年模拟政协活动.webp"},
+            {id:44, name:"非遗委员工作室", leader:"胡志强", address:"上城区大井巷55号", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:45, name:"乐医汇委员工作室", leader:"潘乐屹", address:"上城区同协路1279号西子智慧产业园8号楼401室", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:46, name:"全民阅读委员工作室", leader:"赵群伟", address:"上城区中山中路6号", type:"特色", img:"./images/studios/10-全民阅读委员工作室-举办宋韵美学体验活动.webp"},
+            {id:47, name:"健康九久委员工作室", leader:"李祖胜", address:"上城区九堡街道蓝桥卫生服务站", type:"特色", img:"./images/studios/21-健康九久委员工作室-召开健康普及专题座谈会.webp"},
+            {id:48, name:"智汇钱潮委员工作室", leader:"沈波", address:"上城区小院书房", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:49, name:"环境资源和农业界别委员工作室", leader:"熊义勤、骆鉴湖", address:"浙江大学华家池校区；杭州市上城区城星路中天国开大厦19楼", type:"界别", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"},
+            {id:50, name:"漱玉集委员工作室", leader:"王盈", address:"上城区紫阳街道闻潮路77号", type:"特色", img:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp"}
+        ];
+        
+        function renderStudios(filter = 'all') {
+            const grid = document.getElementById('studioGrid');
+            const filtered = filter === 'all' ? studiosData : studiosData.filter(s => s.type === filter);
+            grid.innerHTML = filtered.map(s => `
+                <div class="studio-card">
+                    <img src="${s.img}" alt="${s.name}" onerror="this.style.display='none'">
+                    <div class="info">
+                        <h3>${s.name}</h3>
+                        <p><strong>领衔委员：</strong>${s.leader}</p>
+                        <p><strong>地址：</strong>${s.address}</p>
+                        <span class="tag">${s.type}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        function filterStudios(type, btn) {
+            document.querySelectorAll('.filter-tabs button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderStudios(type);
+        }
+        
+        renderStudios();
+    </script>
+</body>
+</html>
