@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>界别履职 - 上城区政协</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .page-header { background: linear-gradient(135deg, var(--primary-red) 0%, #c41e3a 100%); color: #fff; padding: 50px 0; text-align: center; }
+        .page-header h1 { font-size: 36px; margin-bottom: 10px; }
+        .page-header p { font-size: 16px; opacity: 0.9; }
+        .circle-tabs { display: flex; gap: 8px; margin: 30px 0; flex-wrap: wrap; justify-content: center; }
+        .circle-tabs button { padding: 8px 18px; border: 2px solid var(--primary-red); background: #fff; color: var(--primary-red); border-radius: 20px; cursor: pointer; font-size: 13px; transition: all 0.3s; }
+        .circle-tabs button.active, .circle-tabs button:hover { background: var(--primary-red); color: #fff; }
+        .circle-content { background: #fff; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .circle-content h2 { color: var(--primary-red); font-size: 22px; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #eee; }
+        .activity-list { list-style: none; padding: 0; margin: 0; }
+        .activity-list li { display: flex; align-items: flex-start; padding: 15px 0; border-bottom: 1px solid #f0f0f0; }
+        .activity-list li:last-child { border-bottom: none; }
+        .activity-list .icon { width: 40px; height: 40px; background: var(--light-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0; }
+        .activity-list .content { flex: 1; }
+        .activity-list h4 { color: #333; font-size: 15px; margin-bottom: 5px; }
+        .activity-list p { color: #888; font-size: 13px; margin: 0; }
+        .activity-list .time { color: var(--primary-red); font-size: 13px; white-space: nowrap; margin-left: 15px; }
+        .photo-section { margin-top: 25px; }
+        .photo-section h3 { color: var(--primary-red); font-size: 18px; margin-bottom: 15px; }
+        .photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .photo-item { border-radius: 8px; overflow: hidden; aspect-ratio: 1; cursor: pointer; background: #f0f0f0; position: relative; }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .photo-item:hover img { transform: scale(1.1); }
+        .photo-item span { display: block; padding: 5px; background: rgba(0,0,0,0.6); color: #fff; font-size: 10px; text-align: center; position: absolute; bottom: 0; left: 0; right: 0; }
+        @media(max-width: 900px) { .photo-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media(max-width: 600px) { .photo-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"><div class="logo-icon">政</div><span>上城区政协</span></div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./studios.html">委员工作室</a></li>
+                <li><a href="./circles.html" class="active">界别履职</a></li>
+                <li><a href="./streets.html">街道议事堂</a></li>
+                <li><a href="./center.html">协商中心</a></li>
+                <li><a href="./gallery.html">活动相册</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>各界别履职计划</h1>
+        <p>16个界别 · 34项年度活动</p>
+    </div>
+
+    <main class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="circle-tabs" id="circleTabs"></div>
+        <div class="circle-content" id="circleContent"></div>
+    </main>
+
+    <div id="previewModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center;" onclick="closePreview()">
+        <span style="position:absolute; top:20px; right:30px; color:#fff; font-size:40px; cursor:pointer;">&times;</span>
+        <img id="previewImg" style="max-width:90%; max-height:90%; border-radius:8px;">
+        <p id="previewText" style="position:absolute; bottom:30px; left:50%; transform:translateX(-50%); color:#fff; font-size:16px; text-align:center;"></p>
+    </div>
+
+    <footer class="footer"><p>杭州市上城区政协 © 2026</p></footer>
+
+    <script>
+        function toggleMenu(){document.getElementById('navLinks').classList.toggle('show');}
+        
+        const circlesData = {
+            "中共界别": {
+                activities: [
+                    {icon:"🌐", title:"国际人才交流活动", desc:"开展国际人才交流，助力CID建设", time:"1月"},
+                    {icon:"🤝", title:"加强人才引育，助推CID建设专题协商会", desc:"围绕人才引育开展专题协商", time:"9月"}
+                ],
+                photos: [
+                    {src:"./images/circles/2022.12.06 中共界别委员交流活动.webp", title:"中共界别委员交流"},
+                    {src:"./images/circles/2024.02.02 区政协一届三次会议中共界别小组讨论会.webp", title:"区政协一届三次会议"},
+                    {src:"./images/circles/2023年8月，参观亚运会博物馆.webp", title:"参观亚运会博物馆"},
+                    {src:"./images/circles/2023年8月，参观亚运会博物馆2.webp", title:"参观亚运会博物馆"}
+                ]
+            },
+            "无党派人士界别": {
+                activities: [
+                    {icon:"👩", title:"她力量在路上主题沙龙", desc:"与新就业女性共庆妇女节主题沙龙", time:"3月"},
+                    {icon:"🎁", title:"界别委员公益惠民活动", desc:"界别委员公益惠民活动", time:"5月"},
+                    {icon:"📋", title:"无党派界别协商议事会", desc:"界别协商议事会", time:"9月"}
+                ],
+                photos: [
+                    {src:"./images/circles/无党派界别赴区司法局调研涉外法律服务有关工作 .webp", title:"调研涉外法律服务"},
+                    {src:"./images/circles/范国良副主席参加无党派界别A洞悉当前宏观经济态势与战略投资机遇A主题分享活动.webp", title:"宏观经济主题分享"},
+                    {src:"./images/circles/主体培训班合影.webp", title:"主体培训班合影"},
+                    {src:"./images/circles/IMG_20240315_085702.webp", title:"界别活动"},
+                    {src:"./images/circles/WechatIMG31.webp", title:"界别交流活动"}
+                ]
+            },
+            "共青团青联界别": {
+                activities: [
+                    {icon:"🧧", title:"送福送春联活动", desc:"送福送春联惠民服务", time:"1月"},
+                    {icon:"📚", title:"书香润初心青年话担当读书交流会", desc:"读书交流会", time:"4月"}
+                ],
+                photos: [
+                    {src:"./images/circles/IMG20240527105848.webp", title:"共青团青联活动"},
+                    {src:"./images/circles/IMG20240527161315.webp", title:"共青团青联活动"},
+                    {src:"./images/circles/IMG20240527170959.webp", title:"共青团青联活动"},
+                    {src:"./images/circles/WechatIMG33.webp", title:"界别活动"}
+                ]
+            },
+            "工会界别": {
+                activities: [
+                    {icon:"🔨", title:"铜韵传承锻打时光铜雕艺术体验日", desc:"铜雕艺术体验日活动", time:"4月"},
+                    {icon:"🚶", title:"上城区职工毅行活动", desc:"职工毅行活动", time:"4月"}
+                ],
+                photos: [
+                    {src:"./images/circles/5月25日2024年上城区职工毅行大会.webp", title:"职工毅行大会"},
+                    {src:"./images/circles/5月25日2024年上城区职工毅行大会2.webp", title:"职工毅行大会"},
+                    {src:"./images/circles/2024年5月6日 上工大讲堂.webp", title:"上工大讲堂"}
+                ]
+            },
+            "妇联界别": {
+                activities: [
+                    {icon:"🏛️", title:"品宋韵话传承谋创新文化专题活动", desc:"宋韵文化专题活动", time:"5月"},
+                    {icon:"💰", title:"金融赋能发展协商会", desc:"金融赋能发展协商会", time:"9月"}
+                ],
+                photos: [
+                    {src:"./images/circles/妇联界别开展A品宋韵文化  做精致丽人A三八节活动.webp", title:"品宋韵文化活动"},
+                    {src:"./images/circles/妇联界别调研牵头人高艳霞带队调研白马庄巾帼共富工坊，为调研报告积累素材.webp", title:"调研巾帼共富工坊"},
+                    {src:"./images/circles/妇联界别召集人吕仕琼开展A七一A慰问.webp", title:"七一慰问"},
+                    {src:"./images/circles/政协一届三次会议，妇联界别民宗界别合影.webp", title:"两会界别合影"}
+                ]
+            },
+            "工商联界别": {
+                activities: [
+                    {icon:"📊", title:"营商环境专项调研协商", desc:"营商环境专项调研协商", time:"7月"},
+                    {icon:"🏢", title:"委员企业现代治理互学活动", desc:"委员企业现代治理互学", time:"12月"}
+                ],
+                photos: [
+                    {src:"./images/circles/现场调研湖滨步行街营商环境提升项目.webp", title:"调研营商环境"},
+                    {src:"./images/circles/与商户开展座谈.webp", title:"商户座谈"},
+                    {src:"./images/circles/深圳浙江商会考察钱二图片.webp", title:"深圳浙江商会考察"}
+                ]
+            },
+            "科技科协界别": {
+                activities: [
+                    {icon:"💻", title:"开展关于推进OPC发展的调研", desc:"推进OPC发展调研", time:"3月"},
+                    {icon:"🚀", title:"科创融合协商会", desc:"加快推进科技创新和产业创新深度融合协商会", time:"10月"}
+                ],
+                photos: [
+                    {src:"./images/circles/组织民企500强部分人员参观考察钱二.webp", title:"民企500强考察"},
+                    {src:"./images/circles/IMG_0853.HEIC.webp", title:"科技界别活动"}
+                ]
+            },
+            "侨台界别": {
+                activities: [
+                    {icon:"🤖", title:"侨助发展AI赋能经济活动", desc:"走进群核科技", time:"4月"},
+                    {icon:"🌏", title:"融通世界文化互鉴活动", desc:"文化互鉴活动", time:"6月"},
+                    {icon:"📋", title:"侨助发展专题协商会", desc:"侨助发展专题协商", time:"9月"}
+                ],
+                photos: [
+                    {src:"./images/circles/现场调研德寿宫附近停车泊位情况.webp", title:"调研德寿宫"},
+                    {src:"./images/circles/针对德寿宫周边一件事情况进行座谈.webp", title:"德寿宫座谈"},
+                    {src:"./images/circles/mmexport1711700143984.webp", title:"侨台界别活动"}
+                ]
+            },
+            "新闻文体界别": {
+                activities: [
+                    {icon:"📰", title:"上城区人文经济创新发展专题协商会", desc:"人文经济创新发展协商", time:"8月"},
+                    {icon:"🎨", title:"宋韵文化两创交流分享活动", desc:"宋韵文化两创交流", time:"10月"}
+                ],
+                photos: [
+                    {src:"./images/circles/IMG_20240531_160417.webp", title:"新闻文体活动"},
+                    {src:"./images/circles/IMG_20240618_095251.webp", title:"新闻文体活动"}
+                ]
+            },
+            "经济界别": {
+                activities: [
+                    {icon:"📈", title:"开局十五五经济高质量发展专题协商会", desc:"经济高质量发展协商", time:"4月"},
+                    {icon:"🔬", title:"创新高地专题调研活动", desc:"创新高地专题调研", time:"9月"}
+                ],
+                photos: [
+                    {src:"./images/circles/42e4ebbcbe8d12cf29a4876baecaca2a.webp", title:"经济界别活动"},
+                    {src:"./images/circles/619ee9289835d103c435f174c1e0cff.webp", title:"经济界别活动"}
+                ]
+            },
+            "环境资源和农业界别": {
+                activities: [
+                    {icon:"🌿", title:"城村共生绿美共富分享会", desc:"城乡融合体验实践分享", time:"4月"},
+                    {icon:"🏙️", title:"城市更新盘活存量建筑协商会", desc:"城市更新盘活存量建筑协商", time:"10月"}
+                ],
+                photos: [
+                    {src:"./images/circles/353cd94f8a4dc02a2e821a5ba8ab043.webp", title:"环境资源活动"},
+                    {src:"./images/circles/3f7343aec8231bde22a668a4e17d149a.webp", title:"环境资源活动"},
+                    {src:"./images/circles/2f41c28d4b53804fb60bb6ef196c54a4.webp", title:"环境资源活动"},
+                    {src:"./images/circles/82cf6d0fbeb3c41a443b837ff9927617.webp", title:"环境资源活动"}
+                ]
+            },
+            "教育界别": {
+                activities: [
+                    {icon:"👦", title:"青少年模拟政协委员活动", desc:"青少年模拟政协活动", time:"9月"},
+                    {icon:"📋", title:"教育系统政协委员座谈会", desc:"教育系统委员座谈", time:"11月"}
+                ],
+                photos: [
+                    {src:"./images/circles/WechatIMG32.webp", title:"教育界别活动"},
+                    {src:"./images/circles/IMG_2126.webp", title:"教育界别活动"}
+                ]
+            },
+            "医卫界别": {
+                activities: [
+                    {icon:"🏥", title:"界别委员惠民健体服务", desc:"名中医讲座、适宜技术应用、义诊", time:"5月"},
+                    {icon:"📋", title:"医卫界别协商议事会", desc:"医卫界别协商议事", time:"9月"}
+                ],
+                photos: [
+                    {src:"./images/circles/mmexport1711702029812.webp", title:"医卫界别活动"},
+                    {src:"./images/circles/mmexport1717153124428.webp", title:"医卫界别活动"},
+                    {src:"./images/circles/mmexport1717153126963.webp", title:"医卫界别活动"},
+                    {src:"./images/circles/mmexport1717153128393.webp", title:"医卫界别活动"}
+                ]
+            },
+            "社会福利和保障界别": {
+                activities: [
+                    {icon:"❤️", title:"爱心服务活动", desc:"爱心志愿服务", time:"6月"},
+                    {icon:"🎁", title:"爱心义卖活动", desc:"爱心义卖活动", time:"11月"}
+                ],
+                photos: [
+                    {src:"./images/circles/联动邵逸夫医院，开展A以爱之名A等残疾人画展及手工艺品义卖活动.webp", title:"残疾人画展义卖"},
+                    {src:"./images/circles/社会福利和保障界别委员联系界别群众参加党纪学习教育.webp", title:"党纪学习教育"},
+                    {src:"./images/circles/区政府副主席范国良与政协委员参观社会福利和保障界别委员工作室.webp", title:"参观委员工作室"}
+                ]
+            },
+            "民族宗教界别": {
+                activities: [
+                    {icon:"❤️", title:"红十字会博爱周市集", desc:"博爱周市集活动", time:"5月"},
+                    {icon:"🏠", title:"居民楼外立面整治协调会", desc:"外立面整治协调", time:"8月"}
+                ],
+                photos: [
+                    {src:"./images/circles/参加老旧小区物业提质协商议事.webp", title:"物业提质协商"},
+                    {src:"./images/circles/db8232e0c5d40a94e9fbcf8c9dfaee8.webp", title:"民宗界别活动"}
+                ]
+            },
+            "特邀界别": {
+                activities: [
+                    {icon:"♻️", title:"区垃圾分类工作专题协商", desc:"垃圾分类工作协商", time:"5月"},
+                    {icon:"🛣️", title:"城市道路健康体检观察主题活动", desc:"道路健康体检活动", time:"9月"}
+                ],
+                photos: [
+                    {src:"./images/circles/范国良副主席为老字号工作室揭牌.webp", title:"老字号工作室揭牌"},
+                    {src:"./images/circles/开展读书会.webp", title:"读书会活动"},
+                    {src:"./images/circles/重阳节开展为老服务.webp", title:"重阳节为老服务"},
+                    {src:"./images/circles/2024.02.02 区政协一届三次会议中共界别小组讨论会.webp", title:"两会界别讨论"}
+                ]
+            }
+        };
+        
+        function renderTabs() {
+            const tabs = document.getElementById('circleTabs');
+            Object.keys(circlesData).forEach((name, i) => {
+                const btn = document.createElement('button');
+                btn.textContent = name;
+                btn.onclick = () => showCircle(name, btn);
+                if (i === 0) btn.classList.add('active');
+                tabs.appendChild(btn);
+            });
+        }
+        
+        function showCircle(name, btn) {
+            document.querySelectorAll('.circle-tabs button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const data = circlesData[name];
+            let html = `<h2>📋 ${name} 2026年度履职计划</h2>`;
+            html += '<ul class="activity-list">';
+            data.activities.forEach(a => {
+                html += `<li><div class="icon">${a.icon}</div><div class="content"><h4>${a.title}</h4><p>${a.desc}</p></div><span class="time">${a.time}</span></li>`;
+            });
+            html += '</ul>';
+            
+            if (data.photos && data.photos.length > 0) {
+                html += '<div class="photo-section"><h3>📷 界别活动照片</h3><div class="photo-grid">';
+                data.photos.forEach(p => {
+                    html += `<div class="photo-item" onclick="previewImage('${p.src}', '${p.title}')">
+                        <img src="${p.src}" alt="${p.title}" onerror="this.style.display='none'">
+                        <span>${p.title}</span>
+                    </div>`;
+                });
+                html += '</div></div>';
+            }
+            
+            document.getElementById('circleContent').innerHTML = html;
+        }
+        
+        function previewImage(src, title) {
+            document.getElementById('previewImg').src = src;
+            document.getElementById('previewText').textContent = title;
+            document.getElementById('previewModal').style.display = 'flex';
+        }
+        
+        function closePreview() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+        
+        renderTabs();
+        showCircle(Object.keys(circlesData)[0], document.querySelector('.circle-tabs button'));
+    </script>
+</body>
+</html>
