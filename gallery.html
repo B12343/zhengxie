@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动相册 - 上城区政协</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        .page-header { background: linear-gradient(135deg, var(--primary-red) 0%, #c41e3a 100%); color: #fff; padding: 50px 0; text-align: center; }
+        .page-header h1 { font-size: 36px; margin-bottom: 10px; }
+        .page-header p { font-size: 16px; opacity: 0.9; }
+        .filter-tabs { display: flex; gap: 10px; margin: 30px 0; flex-wrap: wrap; justify-content: center; }
+        .filter-tabs button { padding: 10px 25px; border: 2px solid var(--primary-red); background: #fff; color: var(--primary-red); border-radius: 25px; cursor: pointer; font-size: 14px; transition: all 0.3s; }
+        .filter-tabs button.active, .filter-tabs button:hover { background: var(--primary-red); color: #fff; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .gallery-item { position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 1; cursor: pointer; background: #f0f0f0; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 50px 10px 10px; color: #fff; font-size: 12px; line-height: 1.4; }
+        .gallery-item .category { position: absolute; top: 10px; left: 10px; background: var(--primary-red); color: #fff; padding: 3px 10px; border-radius: 10px; font-size: 11px; }
+        .total-count { text-align: center; color: #888; margin-bottom: 20px; font-size: 14px; }
+        @media(max-width: 900px) { .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media(max-width: 600px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"><div class="logo-icon">政</div><span>上城区政协</span></div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html">首页</a></li>
+                <li><a href="./studios.html">委员工作室</a></li>
+                <li><a href="./circles.html">界别履职</a></li>
+                <li><a href="./streets.html">街道议事堂</a></li>
+                <li><a href="./center.html">协商中心</a></li>
+                <li><a href="./gallery.html" class="active">活动相册</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h1>委员活动相册</h1>
+        <p>记录履职瞬间 展现委员风采</p>
+    </div>
+
+    <main class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="filter-tabs">
+            <button class="active" onclick="filterGallery('all', this)">全部（70张）</button>
+            <button onclick="filterGallery('工作室', this)">委员工作室（25张）</button>
+            <button onclick="filterGallery('界别', this)">界别活动（45张）</button>
+        </div>
+        <p class="total-count" id="totalCount">共 70 张照片</p>
+
+        <div class="gallery-grid" id="galleryGrid"></div>
+    </main>
+
+    <div id="previewModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center;" onclick="closePreview()">
+        <span style="position:absolute; top:20px; right:30px; color:#fff; font-size:40px; cursor:pointer;">&times;</span>
+        <img id="previewImg" style="max-width:90%; max-height:90%; border-radius:8px;">
+        <p id="previewText" style="position:absolute; bottom:30px; left:50%; transform:translateX(-50%); color:#fff; font-size:16px; text-align:center;"></p>
+    </div>
+
+    <footer class="footer"><p>杭州市上城区政协 © 2026</p></footer>
+
+    <script>
+        function toggleMenu(){document.getElementById('navLinks').classList.toggle('show');}
+        
+        const allPhotos = [
+            // 工作室照片 25张
+            {src:"./images/studios/1-政协湖滨小组委员工作室-学习考察新质生产力一-万事利科创中心.webp", title:"学习考察新质生产力", category:"工作室"},
+            {src:"./images/studios/2-政协清波小组委员工作室-幸福清波，文化送福，联动中国美院为清波派出所、禁毒所、清波居民送新年祝福.webp", title:"幸福清波 文化送福", category:"工作室"},
+            {src:"./images/studios/3-政协紫阳三一委员工作室-践行委员说·委员做，锚定两个先行目标，领跑基层白治之路.webp", title:"委员说·委员做", category:"工作室"},
+            {src:"./images/studios/4-采荷街道幸福19委员工作室-疗愈经济分享体验会活动.webp", title:"疗愈经济分享", category:"工作室"},
+            {src:"./images/studios/5-政协四季青小组委员工作室-市区县三级联动，召开投早投小投科技专题协商会.webp", title:"投早投小投科技", category:"工作室"},
+            {src:"./images/studios/6-政协彭埠小组委员工作室-邀请非遗传承人开展非遗制作体验活动.webp", title:"非遗制作体验", category:"工作室"},
+            {src:"./images/studios/7-工会界别委员工作室-开展美丽大讲堂活动.webp", title:"美丽大讲堂", category:"工作室"},
+            {src:"./images/studios/8-社会福利和保障界别委员工作室-残疾人之家的义卖活动.webp", title:"残疾人之家义卖", category:"工作室"},
+            {src:"./images/studios/9-文润童心委员工作室-传承和弘扬中华优秀传统文化，探索乡村优秀传统文化启蒙教育新路径.webp", title:"文润童心", category:"工作室"},
+            {src:"./images/studios/10-全民阅读委员工作室-举办宋韵美学体验活动.webp", title:"宋韵美学体验", category:"工作室"},
+            {src:"./images/studios/11-爱馨文化公益委员工作室-爱馨文化公益委员工作室.webp", title:"爱馨文化公益", category:"工作室"},
+            {src:"./images/studios/12-老爸好商量委员工作室-发扬重视家庭教育优良传统，助力孩子健康快乐成长，举办亲子运动会.webp", title:"亲子运动会", category:"工作室"},
+            {src:"./images/studios/13-有意思委员工作室-工作室委员与社区居民代表召开民生座谈会，听取居民对小区提升、菜场改造、停车难等问题的意见建议.webp", title:"民生座谈会", category:"工作室"},
+            {src:"./images/studios/14-侨见未来委员工作室-关于社区居民空调安装纠纷的专项协商会.webp", title:"社区协商会", category:"工作室"},
+            {src:"./images/studios/15-张瑞旭委员工作室-举办委员工作室跨代共融日活动.webp", title:"跨代共融日", category:"工作室"},
+            {src:"./images/studios/16-大健康委员工作室-传承国粹，践行公益，走进社区开展健康宣教义诊活动.webp", title:"健康宣教义诊", category:"工作室"},
+            {src:"./images/studios/17-俞富康宋韵文化委员工作室-国际艺术交流送中国福.webp", title:"国际艺术交流", category:"工作室"},
+            {src:"./images/studios/18-春泥委员工作室-两会期间迎新送福、送春联.webp", title:"迎新送福", category:"工作室"},
+            {src:"./images/studios/19-邻聚力委员工作室-凝聚社会公益慈善之心，开展让每个孩子像花儿一样绽放主题论坛.webp", title:"花儿绽放论坛", category:"工作室"},
+            {src:"./images/studios/20-建和社区委员工作室-党建引领，做好点滴惠民小事，走访慰问九和人家独居老人.webp", title:"走访慰问", category:"工作室"},
+            {src:"./images/studios/21-健康九久委员工作室-召开健康普及专题座谈会.webp", title:"健康普及座谈", category:"工作室"},
+            {src:"./images/studios/22-同心·共富委员工作室-举行乡村音乐节，用实用管用的好点子，助力乡村振兴.webp", title:"乡村音乐节", category:"工作室"},
+            {src:"./images/studios/23-茗荟聚智委员工作室-开展茶韵议事交流活动.webp", title:"茶韵议事", category:"工作室"},
+            {src:"./images/studios/24-育共体阳光行委员工作室-小小政协委员青少年模拟政协活动.webp", title:"小小政协委员", category:"工作室"},
+            {src:"./images/studios/25-乐动新声委员工作室-委员工作室.webp", title:"乐动新声", category:"工作室"},
+            // 界别照片 45张
+            {src:"./images/circles/2022.12.06 中共界别委员交流活动.webp", title:"中共界别委员交流", category:"界别"},
+            {src:"./images/circles/2024.02.02 区政协一届三次会议中共界别小组讨论会.webp", title:"区政协一届三次会议", category:"界别"},
+            {src:"./images/circles/2023年8月，参观亚运会博物馆.webp", title:"参观亚运会博物馆", category:"界别"},
+            {src:"./images/circles/2023年8月，参观亚运会博物馆2.webp", title:"参观亚运会博物馆", category:"界别"},
+            {src:"./images/circles/无党派界别赴区司法局调研涉外法律服务有关工作 .webp", title:"调研涉外法律服务", category:"界别"},
+            {src:"./images/circles/范国良副主席参加无党派界别A洞悉当前宏观经济态势与战略投资机遇A主题分享活动.webp", title:"宏观经济主题分享", category:"界别"},
+            {src:"./images/circles/主体培训班合影.webp", title:"主体培训班合影", category:"界别"},
+            {src:"./images/circles/IMG_20240315_085702.webp", title:"界别活动", category:"界别"},
+            {src:"./images/circles/WechatIMG31.webp", title:"界别交流活动", category:"界别"},
+            {src:"./images/circles/IMG20240527105848.webp", title:"共青团青联活动", category:"界别"},
+            {src:"./images/circles/IMG20240527161315.webp", title:"共青团青联活动", category:"界别"},
+            {src:"./images/circles/IMG20240527170959.webp", title:"共青团青联活动", category:"界别"},
+            {src:"./images/circles/WechatIMG33.webp", title:"界别活动", category:"界别"},
+            {src:"./images/circles/5月25日2024年上城区职工毅行大会.webp", title:"职工毅行大会", category:"界别"},
+            {src:"./images/circles/5月25日2024年上城区职工毅行大会2.webp", title:"职工毅行大会", category:"界别"},
+            {src:"./images/circles/2024年5月6日 上工大讲堂.webp", title:"上工大讲堂", category:"界别"},
+            {src:"./images/circles/妇联界别开展A品宋韵文化  做精致丽人A三八节活动.webp", title:"品宋韵文化活动", category:"界别"},
+            {src:"./images/circles/妇联界别调研牵头人高艳霞带队调研白马庄巾帼共富工坊，为调研报告积累素材.webp", title:"调研巾帼共富工坊", category:"界别"},
+            {src:"./images/circles/妇联界别召集人吕仕琼开展A七一A慰问.webp", title:"七一慰问", category:"界别"},
+            {src:"./images/circles/政协一届三次会议，妇联界别民宗界别合影.webp", title:"两会界别合影", category:"界别"},
+            {src:"./images/circles/现场调研湖滨步行街营商环境提升项目.webp", title:"调研营商环境", category:"界别"},
+            {src:"./images/circles/与商户开展座谈.webp", title:"商户座谈", category:"界别"},
+            {src:"./images/circles/深圳浙江商会考察钱二图片.webp", title:"深圳浙江商会考察", category:"界别"},
+            {src:"./images/circles/组织民企500强部分人员参观考察钱二.webp", title:"民企500强考察", category:"界别"},
+            {src:"./images/circles/IMG_0853.HEIC.webp", title:"科技界别活动", category:"界别"},
+            {src:"./images/circles/现场调研德寿宫附近停车泊位情况.webp", title:"调研德寿宫", category:"界别"},
+            {src:"./images/circles/针对德寿宫周边一件事情况进行座谈.webp", title:"德寿宫座谈", category:"界别"},
+            {src:"./images/circles/mmexport1711700143984.webp", title:"侨台界别活动", category:"界别"},
+            {src:"./images/circles/IMG_20240531_160417.webp", title:"新闻文体活动", category:"界别"},
+            {src:"./images/circles/IMG_20240618_095251.webp", title:"新闻文体活动", category:"界别"},
+            {src:"./images/circles/42e4ebbcbe8d12cf29a4876baecaca2a.webp", title:"经济界别活动", category:"界别"},
+            {src:"./images/circles/619ee9289835d103c435f174c1e0cff.webp", title:"经济界别活动", category:"界别"},
+            {src:"./images/circles/353cd94f8a4dc02a2e821a5ba8ab043.webp", title:"环境资源活动", category:"界别"},
+            {src:"./images/circles/3f7343aec8231bde22a668a4e17d149a.webp", title:"环境资源活动", category:"界别"},
+            {src:"./images/circles/2f41c28d4b53804fb60bb6ef196c54a4.webp", title:"环境资源活动", category:"界别"},
+            {src:"./images/circles/82cf6d0fbeb3c41a443b837ff9927617.webp", title:"环境资源活动", category:"界别"},
+            {src:"./images/circles/WechatIMG32.webp", title:"教育界别活动", category:"界别"},
+            {src:"./images/circles/IMG_2126.webp", title:"教育界别活动", category:"界别"},
+            {src:"./images/circles/mmexport1711702029812.webp", title:"医卫界别活动", category:"界别"},
+            {src:"./images/circles/mmexport1717153124428.webp", title:"医卫界别活动", category:"界别"},
+            {src:"./images/circles/mmexport1717153126963.webp", title:"医卫界别活动", category:"界别"},
+            {src:"./images/circles/mmexport1717153128393.webp", title:"医卫界别活动", category:"界别"},
+            {src:"./images/circles/联动邵逸夫医院，开展A以爱之名A等残疾人画展及手工艺品义卖活动.webp", title:"残疾人画展义卖", category:"界别"},
+            {src:"./images/circles/社会福利和保障界别委员联系界别群众参加党纪学习教育.webp", title:"党纪学习教育", category:"界别"},
+            {src:"./images/circles/区政府副主席范国良与政协委员参观社会福利和保障界别委员工作室.webp", title:"参观委员工作室", category:"界别"},
+            {src:"./images/circles/参加老旧小区物业提质协商议事.webp", title:"物业提质协商", category:"界别"},
+            {src:"./images/circles/db8232e0c5d40a94e9fbcf8c9dfaee8.webp", title:"民宗界别活动", category:"界别"},
+            {src:"./images/circles/范国良副主席为老字号工作室揭牌.webp", title:"老字号工作室揭牌", category:"界别"},
+            {src:"./images/circles/开展读书会.webp", title:"读书会活动", category:"界别"},
+            {src:"./images/circles/重阳节开展为老服务.webp", title:"重阳节为老服务", category:"界别"}
+        ];
+        
+        function renderGallery(filter = 'all') {
+            const grid = document.getElementById('galleryGrid');
+            const filtered = filter === 'all' ? allPhotos : allPhotos.filter(p => p.category === filter);
+            
+            document.getElementById('totalCount').textContent = `共 ${filtered.length} 张照片`;
+            
+            grid.innerHTML = filtered.map(p => `
+                <div class="gallery-item" onclick="previewImage('${p.src}', '${p.title}')">
+                    <img src="${p.src}" alt="${p.title}" onerror="this.style.display='none'">
+                    <span class="category">${p.category}</span>
+                    <div class="overlay">${p.title}</div>
+                </div>
+            `).join('');
+        }
+        
+        function filterGallery(tag, btn) {
+            document.querySelectorAll('.filter-tabs button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGallery(tag);
+        }
+        
+        function previewImage(src, title) {
+            document.getElementById('previewImg').src = src;
+            document.getElementById('previewText').textContent = title;
+            document.getElementById('previewModal').style.display = 'flex';
+        }
+        
+        function closePreview() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+        
+        renderGallery();
+    </script>
+</body>
+</html>
