@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上城区政协委员履职平台</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: #f5f5f5; }
+        .hero { background: linear-gradient(135deg, var(--primary-red) 0%, #c41e3a 100%); color: #fff; padding: 60px 0; text-align: center; }
+        .hero h1 { font-size: 42px; margin-bottom: 20px; }
+        .hero p { font-size: 18px; opacity: 0.95; max-width: 800px; margin: 0 auto 30px; line-height: 1.8; }
+        .hero-btns { display: flex; gap: 20px; justify-content: center; }
+        .hero-btns a { padding: 14px 35px; border-radius: 30px; text-decoration: none; font-size: 16px; font-weight: bold; transition: all 0.3s; }
+        .btn-white { background: #fff; color: var(--primary-red); }
+        .btn-outline { border: 2px solid #fff; color: #fff; }
+        .btn-outline:hover { background: rgba(255,255,255,0.2); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 40px 0; }
+        .stat-box { background: #fff; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .stat-box .num { font-size: 48px; font-weight: bold; color: var(--primary-red); }
+        .stat-box .txt { font-size: 16px; color: #666; margin-top: 8px; }
+        .section-title { text-align: center; margin: 50px 0 30px; }
+        .section-title h2 { color: var(--primary-red); font-size: 28px; display: inline-block; padding-bottom: 10px; border-bottom: 3px solid var(--primary-red); }
+        .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .feature-card { background: #fff; border-radius: 12px; padding: 35px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .feature-card:hover { transform: translateY(-8px); }
+        .feature-icon { width: 80px; height: 80px; background: linear-gradient(135deg, #ffe6e6 0%, #fff 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 36px; }
+        .feature-card h3 { color: var(--primary-red); margin-bottom: 12px; font-size: 20px; }
+        .feature-card p { color: #666; font-size: 14px; line-height: 1.7; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card img { width: 100%; height: 180px; object-fit: cover; background: #f0f0f0; }
+        .card-body { padding: 20px; }
+        .card-body h4 { color: var(--primary-red); margin-bottom: 8px; font-size: 17px; }
+        .card-body p { color: #666; font-size: 14px; line-height: 1.6; }
+        .stars { background: #fff; border-radius: 12px; padding: 30px; display: flex; justify-content: center; gap: 60px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .star-item { display: flex; align-items: center; gap: 15px; font-size: 18px; color: #333; }
+        .star-item span:first-child { font-size: 28px; }
+        @media(max-width: 768px) { .stats-grid, .features, .grid-3 { grid-template-columns: 1fr; } .hero h1 { font-size: 28px; } .stars { flex-direction: column; gap: 20px; align-items: center; } }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo"><div class="logo-icon">政</div><span>上城区政协</span></div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html" class="active">首页</a></li>
+                <li><a href="./studios.html">委员工作室</a></li>
+                <li><a href="./circles.html">界别履职</a></li>
+                <li><a href="./streets.html">街道议事堂</a></li>
+                <li><a href="./center.html">协商中心</a></li>
+                <li><a href="./gallery.html">活动相册</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>上城区政协委员履职平台</h1>
+        <p>以"一室一品"为特色，深化"楼宇商圈""宋韵文化"和"全龄特有爱"公益慈善品牌建设，<br>着力构建宽领域、多层次、常态化的协商体系</p>
+        <div class="hero-btns">
+            <a href="./studios.html" class="btn-white">查看工作室</a>
+            <a href="./gallery.html" class="btn-outline">活动相册</a>
+        </div>
+    </div>
+
+    <main class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div class="stats-grid">
+            <div class="stat-box"><div class="num">50</div><div class="txt">委员工作室</div></div>
+            <div class="stat-box"><div class="num">16</div><div class="txt">界别</div></div>
+            <div class="stat-box"><div class="num">14</div><div class="txt">街道全覆盖</div></div>
+            <div class="stat-box"><div class="num">2</div><div class="txt">协商实践中心</div></div>
+        </div>
+
+        <div class="section-title">
+            <h2>平台特色</h2>
+        </div>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🏢</div>
+                <h3>楼宇商圈</h3>
+                <p>依托楼宇经济优势，打造服务企业的协商平台，助力营商环境优化</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏛️</div>
+                <h3>宋韵文化</h3>
+                <p>传承优秀传统文化，开展宋韵文化体验活动，厚植文化底蕴</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">❤️</div>
+                <h3>全龄特有爱</h3>
+                <p>聚焦"一老一小一残"，开展公益慈善服务，传递社会温暖</p>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>年度重点工作</h2>
+        </div>
+        <div class="grid-3">
+            <div class="card">
+                <img src="./images/studios/5-政协四季青小组委员工作室-市区县三级联动，召开投早投小投科技专题协商会.webp" alt="协商">
+                <div class="card-body">
+                    <h4>科创赋能协商</h4>
+                    <p>围绕新质生产力发展，开展"投早投小投科技"专题协商，推动科技创新</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./images/studios/6-政协彭埠小组委员工作室-邀请非遗传承人开展非遗制作体验活动.webp" alt="非遗">
+                <div class="card-body">
+                    <h4>非遗文化传承</h4>
+                    <p>邀请非遗传承人开展制作体验活动，弘扬中华优秀传统文化</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="./images/studios/8-社会福利和保障界别委员工作室-残疾人之家的义卖活动.webp" alt="公益">
+                <div class="card-body">
+                    <h4>公益慈善服务</h4>
+                    <p>开展爱心义卖、走访慰问等活动，传递社会正能量</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-title">
+            <h2>星级工作室认定</h2>
+        </div>
+        <div class="stars">
+            <div class="star-item"><span style="color:#FFD700;">⭐⭐⭐⭐⭐</span><span>五星级 25家</span></div>
+            <div class="star-item"><span style="color:#C0C0C0;">⭐⭐⭐⭐</span><span>四星级 17家</span></div>
+            <div class="star-item"><span style="color:#CD7F32;">⭐⭐⭐</span><span>三星级 4家</span></div>
+        </div>
+    </main>
+
+    <footer class="footer"><p>杭州市上城区政协 © 2026</p></footer>
+    <script>
+        function toggleMenu(){document.getElementById('navLinks').classList.toggle('show');}
+    </script>
+</body>
+</html>
